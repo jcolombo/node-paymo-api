@@ -2,7 +2,7 @@
   "name": "node-paymo-api",
   "version": "0.0.2",
   "description": "Complete object based implementation of the paymoapp.com API",
-  "main": "index.js",
+  "main": "lib/index.ts",
   "author": "Joel Colombo <jc-dev@360psg.com>",
   "license": "MIT",
   "homepage": "https://github.com/jcolombo/node-paymo-api",
