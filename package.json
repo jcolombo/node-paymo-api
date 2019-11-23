@@ -10,5 +10,8 @@
   "repository": {
     "url": "https://github.com/jcolombo/node-paymo-api",
     "type": "git"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
   }
 }
