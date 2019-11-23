@@ -1,0 +1,14 @@
+{
+  "name": "node-paymo-api",
+  "version": "0.0.1",
+  "description": "Complete object based implementation of the paymoapp.com API",
+  "main": "index.js",
+  "author": "Joel Colombo <jc-dev@360psg.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/jcolombo/node-paymo-api",
+  "bugs": "https://github.com/jcolombo/node-paymo-api/issues",
+  "repository": {
+    "url": "https://github.com/jcolombo/node-paymo-api",
+    "type": "git"
+  }
+}
