@@ -2,7 +2,8 @@
   "name": "node-paymo-api",
   "version": "0.0.3",
   "description": "Complete object based implementation of the paymoapp.com API",
-  "main": "lib/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Joel Colombo <jc-dev@360psg.com>",
   "license": "MIT",
   "homepage": "https://github.com/jcolombo/node-paymo-api",
@@ -13,5 +14,11 @@
   },
   "dependencies": {
     "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }
