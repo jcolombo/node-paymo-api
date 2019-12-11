@@ -1,17 +1,23 @@
+import PaymoResourceHandler, { PaymoResourceHandlerInterface } from "./resources"
 
-interface xx {
-  a:number
+class Paymo {
+  static instances: PaymoResourceHandlerInterface[] = []
+
+  static connect = (
+    userOrApi: string,
+    password: string | null = null
+  ): PaymoResourceHandlerInterface => {
+    let handler:
+      | PaymoResourceHandlerInterface
+      | undefined = Paymo.instances.find(i => i.isApiUser(userOrApi))
+    if (!handler) {
+      handler = new PaymoResourceHandler(userOrApi, password)
+      Paymo.instances.push(handler)
+    }
+    return handler
+  }
 }
 
-const xxx = (a:xx) : number=>{
-  return a.a * 100
-}
-
-const paymoApp = {
-  x: 3,
-  y: xxx({a:5})
-}
+export default Paymo
 
 
-
-export default paymoApp
