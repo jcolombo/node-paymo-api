@@ -2,13 +2,15 @@ import { AbstractResource, AbstractResourceInterface } from '../../abstract'
 import { AuthInterface } from "../../types"
 import { UsersListConfig, UserTypeCreate, UserTypeResponse, UserTypeUpdate } from "./types"
 
-export type UsersHandler = {
+export interface UsersHandler extends AbstractResourceInterface {
   get: (id: number) => Promise<UserTypeResponse | null>
   list: (config?: UsersListConfig) => Promise<UserTypeResponse[]>
   create: (d: UserTypeCreate) => Promise<UserTypeResponse | null>
   update: (id: number, data: UserTypeUpdate) => Promise<UserTypeResponse | null>
   delete: (id: number) => Promise<boolean>
-} & AbstractResourceInterface
+  retire: (id: number) => Promise<UserTypeResponse | null>
+  activate: (id: number) => Promise<UserTypeResponse | null>
+}
 
 export class Users extends AbstractResource implements UsersHandler {
   constructor(auth: AuthInterface) {
@@ -33,6 +35,14 @@ export class Users extends AbstractResource implements UsersHandler {
 
   delete = async (id: number) => {
     return await this.baseDelete(id)
+  }
+
+  retire = async (id: number) => {
+    return await this.update(id, {active:false})
+  }
+
+  activate = async (id: number) => {
+    return await this.update(id, {active:true})
   }
 
 }

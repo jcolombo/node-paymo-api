@@ -15,6 +15,7 @@ class XhrWrapper {
   static get = async (d: any): Promise<AxiosResponse | null> => {
     console.log('AXIOS GET CALL', d)
     return await paymoAxios.get(d.url, d.config).catch((e: Error) => {
+      console.log('ERROR:', e.message)
       throw new Error('PAYMO GET FAILED :' + e)
     })
   }
@@ -22,6 +23,7 @@ class XhrWrapper {
   static post = async (d: any) => {
     console.log('AXIOS POST CALL', d)
     return await paymoAxios.post(d.url, d.data, d.config).catch((e: Error) => {
+      console.log('ERROR:', e.message)
       throw new Error('PAYMO POST FAILED :' + e)
     })
   }
@@ -29,6 +31,7 @@ class XhrWrapper {
   static put = async (d: any) => {
     console.log('AXIOS PUT CALL', d)
     return await paymoAxios.put(d.url, d.data, d.config).catch((e: Error) => {
+      console.log('ERROR:', e.message)
       throw new Error('PAYMO PUT FAILED :' + e)
     })
   }
@@ -36,6 +39,7 @@ class XhrWrapper {
   static delete = async (d: any): Promise<AxiosResponse | null> => {
     console.log('AXIOS DELETE CALL', d)
     return await paymoAxios.delete(d.url, d.config).catch((e: Error) => {
+      console.log('ERROR:', e.message)
       throw new Error('PAYMO DELETE FAILED :' + e)
     })
   }

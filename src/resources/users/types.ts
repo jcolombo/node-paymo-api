@@ -1,4 +1,4 @@
-import { FilterOperator, GenericListConfig } from "../../types"
+import { FilterOperator, GenericListConfig, Merge } from "../../types"
 
 // PAYMO API DOCS - 2019-11-23    /users    /users/####
 // =================================================================================================
@@ -41,7 +41,7 @@ export interface UserTypeRead {
   readonly is_online?: boolean
 }
 
-export type UserTypeUpdate = {
+export interface UserTypeUpdate {
   name?: string
   email?: string
   type?: "Admin" | "Employee"
@@ -57,7 +57,7 @@ export type UserTypeUpdate = {
   time_format?:"H:i"|"h:i"
   decimal_sep?:string
   thousands_sep?:string
-  week_start?:0|1|2|3|4|5|6
+  week_start?:"0"|"1"|"2"|"3"|"4"|"5"|"6"
   language?:string
   theme?:string
   assigned_projects?:number[]
@@ -65,22 +65,23 @@ export type UserTypeUpdate = {
   password?:string
 }
 
-export type UserTypeResponse = UserTypeRead & UserTypeUpdate & {
-  description?: string | null
-  color?: string | null
-  price_per_hour?: number | null
-  price?: number | null
-  hourly_billing_mode?: string | null
-  budget_hours?: number | null
-  adjustable_hours?: boolean | null
-  invoice_item_id?: number | null
+export type UserTypeResponse = Merge<UserTypeUpdate, Merge<UserTypeRead, {
+  additional_privileges:any[]
+  annual_leave_days_number:number|null
+  image:string|null
+  phone:string|null
+  position:string|null
+  price_per_hour:string|null
+  skype:string|null
+  user_hash:string
+  workflows:number[]
+}>>
+
+export interface UserTypeCreate extends UserTypeUpdate {
+  email: string
 }
 
-export type UserTypeCreate = {
-  email: string
-} & UserTypeUpdate
-
-export type UserTypeFilter = {
+export interface UserTypeFilter {
   id?: number
   created_on?: string
   updated_on?: string
@@ -108,7 +109,7 @@ export type UserTypeFilter = {
   password?:string
 }
 
-export type UserFilterCondition = {
+export interface UserFilterCondition extends UserTypeFilter {
   _custom?: {
     [k: string]: {
       key?: Extract<keyof UserTypeFilter, string>
@@ -116,7 +117,7 @@ export type UserFilterCondition = {
       value: string | number | boolean | null | number[]
     }
   }
-} & UserTypeFilter
+}
 
 export interface UsersListConfig extends GenericListConfig {
   filter?:UserFilterCondition

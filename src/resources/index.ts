@@ -2,11 +2,13 @@ import { AuthInterface } from '../types'
 import { Projects, ProjectsHandler } from './projects'
 import { Clients, ClientsHandler } from './clients'
 import { Users, UsersHandler } from "./users"
+import { Bookings, BookingsHandler } from "./bookings"
 
 export interface PaymoHandlersContainerInterface {
   projects?: ProjectsHandler
   clients?: ClientsHandler
   users?: UsersHandler
+  bookings?: BookingsHandler
 }
 
 export interface PaymoResourceHandlerInterface {
@@ -14,6 +16,7 @@ export interface PaymoResourceHandlerInterface {
   projects: () => ProjectsHandler
   clients: () => ClientsHandler
   users: ()=> UsersHandler
+  bookings: ()=>BookingsHandler
 }
 
 const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
@@ -54,6 +57,13 @@ const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
       this.handlers.users = new Users(this.auth)
     }
     return this.handlers.users
+  }
+
+  bookings = (): BookingsHandler => {
+    if (!this.handlers.bookings) {
+      this.handlers.bookings = new Bookings(this.auth)
+    }
+    return this.handlers.bookings
   }
 }
 

@@ -2,14 +2,14 @@ import { AbstractResource, AbstractResourceInterface } from '../../abstract'
 import { AuthInterface } from "../../types"
 import { ProjectsListConfig, ProjectTypeCreate, ProjectTypeResponse, ProjectTypeUpdate } from "./types"
 
-export type ProjectsHandler = {
+export interface ProjectsHandler extends AbstractResourceInterface {
   get: (id: number) => Promise<ProjectTypeResponse | null>
   list: (config?: ProjectsListConfig) => Promise<ProjectTypeResponse[]>
   create: (d: ProjectTypeCreate) => Promise<ProjectTypeResponse | null>
   update: (id: number, data: ProjectTypeUpdate) => Promise<ProjectTypeResponse | null>
   delete: (id: number) => Promise<boolean>
   reorderTaskLists: (id: number, tli: number[]) => Promise<ProjectTypeResponse | null>
-} & AbstractResourceInterface
+}
 
 export class Projects extends AbstractResource implements ProjectsHandler {
   constructor(auth: AuthInterface) {

@@ -2,13 +2,13 @@ import { AbstractResource, AbstractResourceInterface } from '../../abstract'
 import { AuthInterface } from "../../types"
 import { ClientsListConfig, ClientTypeCreate, ClientTypeResponse, ClientTypeUpdate } from "./types"
 
-export type ClientsHandler = {
+export interface ClientsHandler extends AbstractResourceInterface {
   get: (id: number) => Promise<ClientTypeResponse | null>
   list: (config?: ClientsListConfig) => Promise<ClientTypeResponse[]>
   create: (d: ClientTypeCreate) => Promise<ClientTypeResponse | null>
   update: (id: number, data: ClientTypeUpdate) => Promise<ClientTypeResponse | null>
   delete: (id: number) => Promise<boolean>
-} & AbstractResourceInterface
+}
 
 export class Clients extends AbstractResource implements ClientsHandler {
   constructor(auth: AuthInterface) {

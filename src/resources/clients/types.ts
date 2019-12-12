@@ -1,4 +1,4 @@
-import { FilterOperator, GenericListConfig } from '../../types'
+import { FilterOperator, GenericListConfig, Merge } from "../../types"
 
 // PAYMO API DOCS - 2019-11-23 | /clients    /clients/####
 // =================================================================================================
@@ -32,7 +32,7 @@ export interface ClientTypeRead {
   readonly image_thumb_small?: string
 }
 
-export type ClientTypeUpdate = {
+export interface ClientTypeUpdate {
   name?: string
   address?: string
   city?: string
@@ -47,8 +47,7 @@ export type ClientTypeUpdate = {
   image?: string
 }
 
-export type ClientTypeResponse = ClientTypeRead &
-  ClientTypeUpdate & {
+export type ClientTypeResponse = Merge<ClientTypeRead, Merge<ClientTypeUpdate, {
     additional_privileges: any[]
     address?: string | null
     city?: string | null
@@ -61,13 +60,13 @@ export type ClientTypeResponse = ClientTypeRead &
     postal_code?: string | null
     state?: string | null
     website?: string | null
-  }
+  }>>
 
-export type ClientTypeCreate = {
+export interface ClientTypeCreate extends ClientTypeUpdate {
   name: string
-} & ClientTypeUpdate
+}
 
-export type ClientTypeFilter = {
+export interface ClientTypeFilter {
   id?: number
   active?: boolean
   created_on?: string
@@ -86,7 +85,7 @@ export type ClientTypeFilter = {
   website?: string | null
 }
 
-export type ClientFilterCondition = {
+export interface ClientFilterCondition extends ClientTypeFilter {
   _custom?: {
     [k: string]: {
       key?: Extract<keyof ClientTypeFilter, string>
@@ -94,7 +93,7 @@ export type ClientFilterCondition = {
       value: string | number | boolean | null | number[]
     }
   }
-} & ClientTypeFilter
+}
 
 export interface ClientsListConfig extends GenericListConfig {
   filter?: ClientFilterCondition

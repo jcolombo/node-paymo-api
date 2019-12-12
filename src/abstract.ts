@@ -6,6 +6,7 @@ export interface AbstractResourceInterface {}
 export class AbstractResource {
   protected auth: AuthInterface = { userApi: '', password: '' }
   protected resourceKey: string | null = null
+  protected filterDates: string[] = []
 
   constructor(auth: AuthInterface, resourceKey: string) {
     this.auth = auth

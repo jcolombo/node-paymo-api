@@ -1,4 +1,4 @@
-import { FilterOperator, GenericListConfig } from "../../types"
+import { FilterOperator, GenericListConfig, Merge } from "../../types"
 
 // PAYMO API DOCS - 2019-11-23    /projects    /projects/####
 // =================================================================================================
@@ -35,7 +35,7 @@ export interface ProjectTypeRead {
   readonly billing_type: string // undocumented
 }
 
-export type ProjectTypeUpdate = {
+export interface ProjectTypeUpdate {
   name?: string
   client_id?: number
   code?: string
@@ -59,7 +59,7 @@ export type ProjectTypeUpdate = {
   template_id?: number
 }
 
-export type ProjectTypeResponse = ProjectTypeRead & ProjectTypeUpdate & {
+export type ProjectTypeResponse = Merge<ProjectTypeRead, Merge<ProjectTypeUpdate, {
   description?: string | null
   color?: string | null
   price_per_hour?: number | null
@@ -68,14 +68,14 @@ export type ProjectTypeResponse = ProjectTypeRead & ProjectTypeUpdate & {
   budget_hours?: number | null
   adjustable_hours?: boolean | null
   invoice_item_id?: number | null
-}
+}>>
 
-export type ProjectTypeCreate = {
+export interface ProjectTypeCreate extends ProjectTypeUpdate {
   name: string
   client_id: number
-} & ProjectTypeUpdate
+}
 
-export type ProjectTypeFilter = {
+export interface ProjectTypeFilter {
   id?: number
   task_code_increment?: number
   created_on?: string
@@ -104,7 +104,7 @@ export type ProjectTypeFilter = {
   template_id?: number
 }
 
-export type ProjectFilterCondition = {
+export interface ProjectFilterCondition extends ProjectTypeFilter {
   _custom?: {
     [k: string]: {
       key?: Extract<keyof ProjectTypeFilter, string>
@@ -112,7 +112,7 @@ export type ProjectFilterCondition = {
       value: string | number | boolean | null | number[]
     }
   }
-} & ProjectTypeFilter
+}
 
 export interface ProjectsListConfig extends GenericListConfig {
   filter?:ProjectFilterCondition
