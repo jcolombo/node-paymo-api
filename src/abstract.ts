@@ -13,7 +13,7 @@ export class AbstractResource {
     this.resourceKey = resourceKey
   }
 
-  private constructUrl = (id?: number) => {
+  private constructUrl = (id?: number|null) => {
     return this.resourceKey + (id ? '/' + id : '')
   }
 
@@ -90,7 +90,7 @@ export class AbstractResource {
     return includes.join(',')
   }
 
-  baseGet = async (id: number): Promise<object | null> => {
+  baseGet = async (id: number|null): Promise<object | null> => {
     const response = await XhrWrapper.get({
       url: this.constructUrl(id),
       config: {
@@ -106,9 +106,11 @@ export class AbstractResource {
       response.data.hasOwnProperty(this.resourceKey)
     ) {
       const data = response.data[this.resourceKey]
-      if (data.length > 0) {
+      if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
+      } else if (data) {
+        return data
       }
     }
     return null
@@ -162,15 +164,17 @@ export class AbstractResource {
       response.data.hasOwnProperty(this.resourceKey)
     ) {
       const data = response.data[this.resourceKey]
-      if (data.length > 0) {
+      if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
+      } else if (data) {
+        return data
       }
     }
     return null
   }
 
-  baseUpdate = async (id: number, data: object) => {
+  baseUpdate = async (id: number|null, data: object) => {
     const response = await XhrWrapper.put({
       url: this.constructUrl(id),
       config: {
@@ -187,9 +191,11 @@ export class AbstractResource {
       response.data.hasOwnProperty(this.resourceKey)
     ) {
       const data = response.data[this.resourceKey]
-      if (data.length > 0) {
+      if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
+      } else if (data) {
+        return data
       }
     }
     return null

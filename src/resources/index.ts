@@ -3,12 +3,21 @@ import { Projects, ProjectsHandler } from './projects'
 import { Clients, ClientsHandler } from './clients'
 import { Users, UsersHandler } from "./users"
 import { Bookings, BookingsHandler } from "./bookings"
+import { ClientContacts, ClientContactsHandler } from "./clientcontacts"
+import { Comments, CommentsHandler, Threads, ThreadsHandler } from "./comments"
+import { Company, CompanyHandler } from "./company"
+import { Discussions, DiscussionsHandler } from "./discussions"
 
 export interface PaymoHandlersContainerInterface {
   projects?: ProjectsHandler
   clients?: ClientsHandler
   users?: UsersHandler
   bookings?: BookingsHandler
+  clientcontacts?: ClientContacts
+  comments?: Comments
+  threads?: Threads
+  company?: Company
+  discussions?: Discussions
 }
 
 export interface PaymoResourceHandlerInterface {
@@ -17,6 +26,11 @@ export interface PaymoResourceHandlerInterface {
   clients: () => ClientsHandler
   users: ()=> UsersHandler
   bookings: ()=>BookingsHandler
+  clientcontacts: ()=>ClientContactsHandler
+  comments: ()=>CommentsHandler
+  threads: ()=>ThreadsHandler
+  company: ()=>CompanyHandler
+  discussions: ()=>DiscussionsHandler
 }
 
 const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
@@ -64,6 +78,41 @@ const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
       this.handlers.bookings = new Bookings(this.auth)
     }
     return this.handlers.bookings
+  }
+
+  clientcontacts = (): ClientContactsHandler => {
+    if (!this.handlers.clientcontacts) {
+      this.handlers.clientcontacts = new ClientContacts(this.auth)
+    }
+    return this.handlers.clientcontacts
+  }
+
+  comments = (): CommentsHandler => {
+    if (!this.handlers.comments) {
+      this.handlers.comments = new Comments(this.auth)
+    }
+    return this.handlers.comments
+  }
+
+  threads = (): ThreadsHandler => {
+    if (!this.handlers.threads) {
+      this.handlers.threads = new Threads(this.auth)
+    }
+    return this.handlers.threads
+  }
+
+  company = (): CompanyHandler => {
+    if (!this.handlers.company) {
+      this.handlers.company = new Company(this.auth)
+    }
+    return this.handlers.company
+  }
+
+  discussions = (): DiscussionsHandler => {
+    if (!this.handlers.discussions) {
+      this.handlers.discussions = new Discussions(this.auth)
+    }
+    return this.handlers.discussions
   }
 }
 
