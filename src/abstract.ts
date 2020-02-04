@@ -6,11 +6,13 @@ export interface AbstractResourceInterface {}
 export class AbstractResource {
   protected auth: AuthInterface = { userApi: '', password: '' }
   protected resourceKey: string | null = null
+  protected responseKey: string | null = null
   protected filterDates: string[] = []
 
-  constructor(auth: AuthInterface, resourceKey: string) {
+  constructor(auth: AuthInterface, resourceKey: string, responseKey: string | null = null) {
     this.auth = auth
     this.resourceKey = resourceKey
+    this.responseKey = responseKey
   }
 
   private constructUrl = (id?: number|null) => {
@@ -98,14 +100,16 @@ export class AbstractResource {
         headers: this.constructHeaders(),
       },
     })
+    const responseKey = this.responseKey!==null? this.responseKey : this.resourceKey
     if (
-      this.resourceKey &&
+      responseKey &&
       response &&
       response.status >= 200 &&
       response.status < 300 &&
-      response.data.hasOwnProperty(this.resourceKey)
+      response.data.hasOwnProperty(responseKey)
     ) {
-      const data = response.data[this.resourceKey]
+      console.log('RESPONSE KEY', responseKey, response.data)
+      const data = response.data[responseKey]
       if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
@@ -133,14 +137,15 @@ export class AbstractResource {
             : undefined,
       },
     })
+    const responseKey = this.responseKey!==null? this.responseKey : this.resourceKey
     if (
-      this.resourceKey &&
+      responseKey &&
       response &&
       response.status >= 200 &&
       response.status < 300 &&
-      response.data.hasOwnProperty(this.resourceKey)
+      response.data.hasOwnProperty(responseKey)
     ) {
-      const data = response.data[this.resourceKey]
+      const data = response.data[responseKey]
       console.log('AXIOS RESPONSE', data)
       return data
     }
@@ -156,14 +161,15 @@ export class AbstractResource {
       },
       data: data,
     })
+    const responseKey = this.responseKey!==null? this.responseKey : this.resourceKey
     if (
-      this.resourceKey &&
+      responseKey &&
       response &&
       response.status >= 200 &&
       response.status < 300 &&
-      response.data.hasOwnProperty(this.resourceKey)
+      response.data.hasOwnProperty(responseKey)
     ) {
-      const data = response.data[this.resourceKey]
+      const data = response.data[responseKey]
       if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
@@ -183,14 +189,15 @@ export class AbstractResource {
       },
       data: data,
     })
+    const responseKey = this.responseKey!==null? this.responseKey : this.resourceKey
     if (
-      this.resourceKey &&
+      responseKey &&
       response &&
       response.status >= 200 &&
       response.status < 300 &&
-      response.data.hasOwnProperty(this.resourceKey)
+      response.data.hasOwnProperty(responseKey)
     ) {
-      const data = response.data[this.resourceKey]
+      const data = response.data[responseKey]
       if (!!data && Array.isArray(data.length > 0)) {
         console.log('AXIOS RESPONSE', data[0])
         return data[0]
