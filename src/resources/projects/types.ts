@@ -57,6 +57,7 @@ export interface ProjectTypeUpdate {
   invoice_item_id?: number
   workflow_id?: number
   template_id?: number
+  tasklists_order?: number[]
 }
 
 export type ProjectTypeResponse = Merge<ProjectTypeRead, Merge<ProjectTypeUpdate, {

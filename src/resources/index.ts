@@ -17,6 +17,13 @@ import { Milestones, MilestonesHandler } from "./milestones"
 import { ProjectTemplates, ProjectTemplatesHandler } from "./projecttemplates"
 import { ProjectStatuses, ProjectStatusesHandler } from "./projectstatuses"
 import { Reports, ReportsHandler } from "./reports"
+import { Sessions, SessionsHandler } from "./sessions"
+import { TaskLists, TaskListsHandler } from "./tasklists"
+import { Tasks, TasksHandler } from "./tasks"
+import { TimeEntries, TimeEntriesHandler } from "./entries"
+import { UserTasks, UserTasksHandler } from "./usertasks"
+import { Workflows, WorkflowsHandler } from "./workflows"
+import { WorkflowStatuses, WorkflowStatusesHandler } from "./workflowstatuses"
 
 export interface PaymoHandlersContainerInterface {
   projects?: ProjectsHandler
@@ -38,6 +45,13 @@ export interface PaymoHandlersContainerInterface {
   projecttemplates?: ProjectTemplates
   projectstatuses?: ProjectStatuses
   reports?: Reports
+  sessions?: Sessions
+  tasklists?: TaskLists
+  tasks?: Tasks
+  entries?: TimeEntries
+  usertasks?: UserTasks
+  workflows?: Workflows
+  workflowstatuses?: WorkflowStatuses
 }
 
 export interface PaymoResourceHandlerInterface {
@@ -61,6 +75,13 @@ export interface PaymoResourceHandlerInterface {
   projecttemplates: ()=> ProjectTemplatesHandler
   projectstatuses: () => ProjectStatusesHandler
   reports: () => ReportsHandler
+  sessions: () => SessionsHandler
+  tasklists: ()=>TaskListsHandler
+  tasks: ()=>TasksHandler
+  entries: ()=>TimeEntriesHandler
+  usertasks: ()=>UserTasksHandler
+  workflows: ()=>WorkflowsHandler
+  workflowstatuses: ()=>WorkflowStatusesHandler
 }
 
 const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
@@ -213,6 +234,55 @@ const PaymoResourceHandler = class implements PaymoResourceHandlerInterface {
       this.handlers.reports = new Reports(this.auth)
     }
     return this.handlers.reports
+  }
+
+  sessions = (): SessionsHandler => {
+    if (!this.handlers.sessions) {
+      this.handlers.sessions = new Sessions(this.auth)
+    }
+    return this.handlers.sessions
+  }
+
+  tasklists = (): TaskListsHandler => {
+    if (!this.handlers.tasklists) {
+      this.handlers.tasklists = new TaskLists(this.auth)
+    }
+    return this.handlers.tasklists
+  }
+
+  tasks = (): TasksHandler => {
+    if (!this.handlers.tasks) {
+      this.handlers.tasks = new Tasks(this.auth)
+    }
+    return this.handlers.tasks
+  }
+
+  entries = (): TimeEntriesHandler => {
+    if (!this.handlers.entries) {
+      this.handlers.entries = new TimeEntries(this.auth)
+    }
+    return this.handlers.entries
+  }
+
+  usertasks = (): UserTasksHandler => {
+    if (!this.handlers.usertasks) {
+      this.handlers.usertasks = new UserTasks(this.auth)
+    }
+    return this.handlers.usertasks
+  }
+
+  workflows = (): WorkflowsHandler => {
+    if (!this.handlers.workflows) {
+      this.handlers.workflows = new Workflows(this.auth)
+    }
+    return this.handlers.workflows
+  }
+
+  workflowstatuses = (): WorkflowStatusesHandler => {
+    if (!this.handlers.workflowstatuses) {
+      this.handlers.workflowstatuses = new WorkflowStatuses(this.auth)
+    }
+    return this.handlers.workflowstatuses
   }
 }
 
