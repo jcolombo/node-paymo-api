@@ -55,11 +55,9 @@ export class AbstractResource {
         case 'not in':
           const v = Array.isArray(rVal) ? rVal : [rVal]
           return rKey + ' ' + rOp + ' (' + v.join(',') + ')'
-          break
         case 'like':
         case 'not like':
           return rKey + ' ' + rOp + ' "' + rVal + '"'
-          break
         default:
           return rKey + rOp + rVal
       }
@@ -216,9 +214,7 @@ export class AbstractResource {
         headers: this.constructHeaders(),
       },
     })
-    if (response && response.status >= 200 && response.status < 300) {
-      return true
-    }
-    return false
+    return !!(response && response.status >= 200 && response.status < 300);
+
   }
 }
