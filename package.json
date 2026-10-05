@@ -13,15 +13,14 @@
     "type": "git"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.34.0"
   },
   "devDependencies": {
-    "typescript": "^3.7.2",
-    "watch": "^1.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "typescript": "^5"
   },
   "scripts": {
     "build": "tsc",
-    "watch": "watch 'yarn build' ./src"
+    "watch": "tsc --watch"
   }
 }
