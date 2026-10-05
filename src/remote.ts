@@ -45,7 +45,7 @@ class XhrWrapper {
   }
 
   static test = async () => {
-    const PAYMOAPI = 'aa7498337ab7407e579ad01a08d1868b'
+    const PAYMOAPI = 'YOUR_PAYMO_API_KEY'
     const url = 'projects?include=client,tasks.entries'
 
     const d = {
