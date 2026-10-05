@@ -108,9 +108,9 @@ export class AbstractResource {
     ) {
       console.log('RESPONSE KEY', responseKey, response.data)
       const data = response.data[responseKey]
-      if (!!data && Array.isArray(data.length > 0)) {
+      if (Array.isArray(data)) {
         console.log('AXIOS RESPONSE', data[0])
-        return data[0]
+        return data.length > 0 ? data[0] : null
       } else if (data) {
         return data
       }
@@ -168,9 +168,9 @@ export class AbstractResource {
       response.data.hasOwnProperty(responseKey)
     ) {
       const data = response.data[responseKey]
-      if (!!data && Array.isArray(data.length > 0)) {
+      if (Array.isArray(data)) {
         console.log('AXIOS RESPONSE', data[0])
-        return data[0]
+        return data.length > 0 ? data[0] : null
       } else if (data) {
         return data
       }
@@ -196,9 +196,9 @@ export class AbstractResource {
       response.data.hasOwnProperty(responseKey)
     ) {
       const data = response.data[responseKey]
-      if (!!data && Array.isArray(data.length > 0)) {
+      if (Array.isArray(data)) {
         console.log('AXIOS RESPONSE', data[0])
-        return data[0]
+        return data.length > 0 ? data[0] : null
       } else if (data) {
         return data
       }
